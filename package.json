@@ -1,0 +1,34 @@
+{
+  "name": "phreshr",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "polished": "^2.3.0",
+    "react": "next",
+    "react-cache": "^2.0.0-alpha.0",
+    "react-dom": "next",
+    "react-head": "^3.0.1",
+    "react-scripts": "2.1.0",
+    "react-spring": "^6.1.4",
+    "styled-jsx": "^3.1.0",
+    "the-platform": "^0.9.3",
+    "use-immer": "^0.0.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy:now": "now ./build -A ../now.json"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
