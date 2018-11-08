@@ -4,7 +4,7 @@ export default {
 		secondary: '#53C1DE',
 		phreshrYellow: '#FDE74C',
 		phreshrBlue: '#2980B9',
-		phreshrBlueAlt: '#009AFF;',
+		phreshrBlueAlt: '#009AFF',
 		white: '#FFF',
 		kindaWhite: '#FEFEFB',
 		black: '#111',
