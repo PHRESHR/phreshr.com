@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 import { Img } from 'the-platform';
 import { useSpring, animated } from 'react-spring';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 import vars from '../../styles/variables';
 import { rem, media } from '../../styles/utils/utils';
 

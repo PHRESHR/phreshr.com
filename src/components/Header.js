@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMedia } from 'the-platform';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 import Logo from './Logo';
 import vars from '../styles/variables';
 import { media } from '../styles/utils/utils';
@@ -66,6 +66,7 @@ const { className, styles } = css.resolve`
 
 function Header({ isOpen, toggle }) {
 	const mq_large = useMedia(`(${media.lg()})`);
+	console.log(mq_large);
 
 	return (
 		<header className={className}>

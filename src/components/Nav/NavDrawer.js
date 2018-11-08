@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import { animated, useSpring, Spring } from 'react-spring';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 import vars from '../../styles/variables';
 import { rem, hexToRGB } from '../../styles/utils/utils';
 

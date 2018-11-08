@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from '@reach/router';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 import vars from '../../styles/variables';
 import { media } from '../../styles/utils/utils';
 

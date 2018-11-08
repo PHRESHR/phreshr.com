@@ -1,5 +1,5 @@
 import React from 'react';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 
 export const button = css.resolve`
 button {

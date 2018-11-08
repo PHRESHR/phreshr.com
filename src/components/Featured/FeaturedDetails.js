@@ -1,7 +1,7 @@
 import React from 'react';
 import { Img, useWindowSize } from 'the-platform';
 import { useSpring, animated } from 'react-spring';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 import vars from '../../styles/variables';
 import { rem, hexToRGB, media } from '../../styles/utils/utils';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import FeaturedDetails from './FeaturedDetails';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 import vars from '../../styles/variables';
 import { media } from '../../styles/utils/utils';
 

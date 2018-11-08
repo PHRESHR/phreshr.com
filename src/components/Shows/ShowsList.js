@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useSpring, animated } from 'react-spring';
 import ShowDetails from './ShowDetails';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 import vars from '../../styles/variables';
 import { rem, hexToRGB, media } from '../../styles/utils/utils';
 
@@ -114,7 +114,7 @@ function ShowsList(props) {
 
 	useEffect(() => {
 		const el = gridRef.current;
-		console.log(el.clientHeight - el.offsetHeight);
+		// console.log(el.clientHeight - el.offsetHeight);
 
 		return (el.style.marginBottom = el.clientHeight - el.offsetHeight + 'px');
 	}, []);

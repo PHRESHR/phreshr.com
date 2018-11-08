@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 
 import logo from '../logo.svg';
 

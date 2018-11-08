@@ -1,6 +1,6 @@
 import React from 'react';
 import { Title, Meta } from 'react-head';
-import css from 'styled-jsx/macro';
+import css from 'styled-jsx/css';
 
 import Featured from '../components/Featured/Featured';
 import ShowsList from '../components/Shows/ShowsList';
