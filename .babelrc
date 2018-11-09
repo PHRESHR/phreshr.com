@@ -1,12 +1,16 @@
 {
-  "presets": [ "@babel/preset-env" ],
-  "plugins": [
+  "presets": [
     [
-      "styled-jsx/babel",
+      "@babel/preset-env",
       {
-        "optimizeForSpeed": true,
-        "sourceMaps": true
+        "useBuiltIns": "entry"
       }
-    ]
+    ],
+    "@babel/preset-typescript",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    ["styled-jsx/babel", { "plugins": ["styled-jsx-plugin-postcss"] }]
   ]
 }
