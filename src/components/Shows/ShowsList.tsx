@@ -95,7 +95,7 @@ const { className, styles } = css.resolve`
 interface ShowsListProps {}
 
 function ShowsList(props: ShowsListProps) {
-	const gridRef = useRef<HTMLDivElement>();
+	const gridRef = useRef<HTMLDivElement>(null);
 	const [ slideInRight ] = useSpring({
 		opacity: 1,
 		color: color.phreshrYellow,
@@ -113,10 +113,12 @@ function ShowsList(props: ShowsListProps) {
 	});
 
 	useEffect(() => {
-		// hide scrollbar
-		const el = gridRef.current;
-		return (el ? el.style.marginBottom = el.clientHeight - el.offsetHeight + 'px' : null);
-	}, []);
+			// hide scrollbar
+			const el = gridRef.current;
+			el ? el.style.marginBottom = el.clientHeight - el.offsetHeight + 'px' : el
+		},
+		[],
+	)
 
 	return (
 		<section className={className}>
