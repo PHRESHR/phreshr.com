@@ -10,6 +10,15 @@
     "@babel/preset-react"
   ],
   "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": false,
+        "helpers": true,
+        "regenerator": true,
+        "useESModules": false
+      }
+    ],
     "@babel/plugin-syntax-dynamic-import",
     ["styled-jsx/babel", { "plugins": ["styled-jsx-plugin-postcss"] }]
   ]
