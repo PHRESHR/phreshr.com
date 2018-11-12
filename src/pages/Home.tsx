@@ -4,11 +4,8 @@ import { RouteComponentProps } from "@reach/router"
 
 import Featured from '../components/Featured/Featured';
 import ShowsList from '../components/Shows/ShowsList';
-// import useFetch from '../hooks/useFetch'
-
 
 function Home(props: RouteComponentProps) {
-  // const { data, loading } = useFetch('https://my-json-server.typicode.com/drejohnson/mock-api/featured');
 
   return (
     <>
