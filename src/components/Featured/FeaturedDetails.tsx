@@ -124,7 +124,6 @@ function FeaturedDetails({featured}: FeaturedDetailsProps) {
 		<React.Fragment>
 			<div className={`featured-cover ${className}`}>
 				<React.Suspense
-					maxDuration={500}
 					fallback={
 						<img
 							className={`featured-image preview ${className}`}

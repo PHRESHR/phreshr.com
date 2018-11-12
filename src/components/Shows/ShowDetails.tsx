@@ -62,7 +62,6 @@ function ShowDetails({ show }: ShowDetailsProps) {
 			<animated.div style={slideInRight} className={`show-item ${className}`}>
 				<Link to="/about" className={`show-link ${className}`}>
 					<React.Suspense
-						maxDuration={500}
 						fallback={
 							<img
 								className={`show-poster preview ${className}`}

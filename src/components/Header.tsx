@@ -75,7 +75,7 @@ function Header({isOpen, toggle}: HeaderProps) {
 	return (
 		<header className={className}>
 			<Logo />
-			<React.Suspense fallback={'loading...'} maxDuration={500}>
+			<React.Suspense fallback={'loading...'}>
 				{mqLarge ? <Nav /> : <NavDrawer isOpen={isOpen} />}
 			</React.Suspense>
 			<div className={`mobile-menu ${className}`}>
