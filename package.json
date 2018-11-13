@@ -9,7 +9,6 @@
     "webpack:dev": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack-dev-server --config webpack.config.ts"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
     "@reach/router": "^1.2.1",
     "@svgr/webpack": "^4.0.2",
     "apollo-boost": "^0.1.20",
