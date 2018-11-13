@@ -3,9 +3,8 @@ import { Img } from 'the-platform';
 import { useSpring, animated } from 'react-spring';
 import css from 'styled-jsx/css';
 
-import { color, spacing } from '../../styles/variables'
+import { color, spacing } from '../../styles/variables';
 import { rem, hexToRGB, media } from '../../styles/utils/utils';
-import { FeaturedEntity } from '../../api/model';
 
 const { className, styles } = css.resolve`
   div.featured-cover {
@@ -89,11 +88,22 @@ const { className, styles } = css.resolve`
     }
   }`;
 
-interface FeaturedDetailsProps {
-	featured: FeaturedEntity
+interface FeaturedEntity {
+	uid?: string;
+	id?: string;
+	title?: string;
+	cover?: string;
+	season?: string;
+	show?: {
+		title?: string;
+	};
 }
 
-function FeaturedDetails({featured}: FeaturedDetailsProps) {
+interface FeaturedDetailsProps {
+	featured: FeaturedEntity[];
+}
+
+function FeaturedDetails({ featured }: FeaturedDetailsProps) {
 	const [ slideInRight ] = useSpring({
 		opacity: 1,
 		color: color.phreshrWhite,
@@ -119,45 +129,49 @@ function FeaturedDetails({featured}: FeaturedDetailsProps) {
 		transform: 'translate3d(0px,0,0)',
 		from: { opacity: 0, transform: 'translate3d(40px,0,0)' }
 	});
-  
 	return (
-		<React.Fragment>
-			<div className={`featured-cover ${className}`}>
-				<React.Suspense
-					fallback={
-						<img
-							className={`featured-image preview ${className}`}
-							src={featured.cover_preview}
-							style={{
-								width: '100%',
-								objectFit: 'cover',
-								objectPosition: 'center top'
-							}}
-						/>
-					}
-				>
-					<Img
-						className={`featured-image loaded ${className}`}
-						src={featured.cover}
-						style={{ width: '100%', objectFit: 'cover', objectPosition: 'center top' }}
-					/>
-				</React.Suspense>
-			</div>
-			<div className={`featured-info ${className}`}>
-				<animated.h3 style={slideInLeft} className={className}>
-					{featured.show ? featured.show.title : null}
-					<span className={className}> | </span>
-					<span className={className}>Season.{featured.season}</span>
-				</animated.h3>
-				<a href="#">
-					<animated.h1 style={slideInRight} className={className}>
-						{featured.title}
-					</animated.h1>
-				</a>
-				<animated.div style={fadeIn} className={`stripe ${className}`} />
-			</div>
+		<>
+			{featured.map((episode: FeaturedEntity) => (
+				<div key={episode.id}>
+					<div className={`featured-cover ${className}`}>
+						<React.Suspense
+							fallback={
+								<img
+									className={`featured-image preview ${className}`}
+									src={`${process.env.CLOUDINARY_URL}/${process.env
+										.COVER_TRANSFORM_PREVIEW}/${episode.cover}`}
+									style={{
+										width: '100%',
+										objectFit: 'cover',
+										objectPosition: 'center top'
+									}}
+								/>
+							}
+						>
+							<Img
+								className={`featured-image loaded ${className}`}
+								src={`${process.env.CLOUDINARY_URL}/${process.env.COVER_TRANSFORM}/${episode.cover}`}
+								style={{ width: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+							/>
+						</React.Suspense>
+					</div>
+					<div className={`featured-info ${className}`}>
+						<animated.h3 style={slideInLeft} className={className}>
+							{episode.show ? episode.show.title : null}
+							<span className={className}> | </span>
+							<span className={className}>Season.{episode.season}</span>
+						</animated.h3>
+						<a href="#">
+							<animated.h1 style={slideInRight} className={className}>
+								{episode.title}
+							</animated.h1>
+						</a>
+						<animated.div style={fadeIn} className={`stripe ${className}`} />
+					</div>
+				</div>
+			))}
 			{styles}
-		</React.Fragment>
+		</>
 	);
 }
 

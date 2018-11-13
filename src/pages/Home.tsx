@@ -1,6 +1,6 @@
 import React from 'react';
 import { Title, Meta } from 'react-head';
-import { RouteComponentProps } from "@reach/router"
+import { RouteComponentProps } from '@reach/router'
 
 import Featured from '../components/Featured/Featured';
 import ShowsList from '../components/Shows/ShowsList';

@@ -1,55 +1,24 @@
 import React, { useEffect, useRef } from 'react';
 import { useSpring, animated } from 'react-spring';
-import ShowDetails from './ShowDetails';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 import css from 'styled-jsx/css';
+import ShowDetails from './ShowDetails';
 
-import { ShowsEntity } from '../../api/model';
 import { color, spacing } from '../../styles/variables';
 import { media, hexToRGB, rem } from '../../styles/utils/utils';
 
-const data: ShowsEntity[] = [
-	{
-		uid: 'mic-check',
-		id: '1',
-		title: 'Mic Check',
-		description: 'Post-ironic palo santo shoreditch butcher, plaid keffiyeh hot chicken ramps quinoa.',
-		poster:
-			'https://res.cloudinary.com/phreshr-media/image/upload/ar_2:3,c_fill,g_face:center,w_465,dpr_auto,f_auto,q_auto/v1494274321/mic-check/poster.jpg',
-		poster_preview:
-			'https://res.cloudinary.com/phreshr-media/image/upload/ar_2:3,c_fill,g_face:center,e_blur:100,fl_strip_profile,dpr_auto,f_auto,q_auto:low,w_178/v1494274321/mic-check/poster.jpg'
-	},
-	{
-		uid: 'smoke-sessions',
-		id: '2',
-		title: 'Smoke Sessions',
-		description: 'Asymmetrical la croix mumblecore, gentrify semiotics ennui.',
-		poster:
-			'https://res.cloudinary.com/phreshr-media/image/upload/ar_2:3,c_fill,g_face:center,w_465,dpr_auto,f_auto,q_auto/v1494274321/smoke-sessions/poster.jpg',
-		poster_preview:
-			'https://res.cloudinary.com/phreshr-media/image/upload/ar_2:3,c_fill,g_face:center,dpr_auto,f_auto,q_auto:low,w_178/v1494274321/smoke-sessions/poster.jpg'
-	},
-	{
-		uid: 'i-am-hip-hop',
-		id: '3',
-		title: 'I Am Hip-Hop',
-		description: 'Blog cray church-key small batch crucifix photo booth.',
-		poster:
-			'https://res.cloudinary.com/phreshr-media/image/upload/ar_2:3,c_fill,g_face:center,w_465,dpr_auto,f_auto,q_auto/v1494274321/i-am-hip-hop/poster.jpg',
-		poster_preview:
-			'https://res.cloudinary.com/phreshr-media/image/upload/ar_2:3,c_fill,g_face:center,dpr_auto,f_auto,q_auto:low,w_178/v1494274321/i-am-hip-hop/poster.jpg'
-	},
-	{
-		uid: 'beats-rhymes-smoke',
-		id: '4',
-		title: 'Beats, Rhymes & Smoke',
-		description:
-			'Synth godard crucifix flexitarian bespoke tbh bitters, skateboard fixie drinking vinegar keffiyeh kinfolk ',
-		poster:
-			'https://res.cloudinary.com/phreshr-media/image/upload/ar_2:3,c_fill,g_face:center,w_465,dpr_auto,f_auto,q_auto/v1541264518/beats-rhymes-smoke/poster.jpg',
-		poster_preview:
-			'https://res.cloudinary.com/phreshr-media/image/upload/ar_2:3,c_fill,g_face:center,dpr_auto,f_auto,q_auto:low,w_178/v1541264518/beats-rhymes-smoke/poster.jpg'
+const shows_query = gql`
+	query {
+		show {
+			id
+			uid
+			title
+			description
+			poster
+		}
 	}
-];
+`;
 
 const { className, styles } = css.resolve`
   section {
@@ -78,7 +47,7 @@ const { className, styles } = css.resolve`
   div.shows-grid {
     display: grid;
 		grid-gap: 1rem;
-		grid-template-columns: repeat(${data.length}, 43%);
+		grid-template-columns: repeat(10, 43%);
 		column-gap: 1rem;
 		row-gap: 1rem;
 		grid-column: 1 / -1;
@@ -130,7 +99,13 @@ function ShowsList(props: ShowsListProps) {
 				<animated.div style={slideUp} className={`stripe ${className}`} />
 			</header>
 			<div ref={gridRef} className={`shows-grid ${className}`}>
-				{data && data.map((show) => <ShowDetails key={show.id} show={show} />)}
+				<Query query={shows_query}>
+					{({ data: { show: shows }, loading, error }) => {
+						if (loading) return <p>Loading...</p>;
+						if (error) return <p>ERROR: {error.message}</p>;
+						return shows && <ShowDetails shows={shows} />;
+					}}
+				</Query>
 			</div>
 			{styles}
 		</section>

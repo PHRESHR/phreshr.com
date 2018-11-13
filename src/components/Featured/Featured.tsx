@@ -1,32 +1,43 @@
 import React, {useState, useEffect} from 'react';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 import FeaturedDetails from './FeaturedDetails';
 
 import { color } from '../../styles/variables'
 import { media } from "../../styles/utils/utils";
-import { FeaturedEntity } from '../../api/model';
 
-const data: FeaturedEntity = {
-	uid: 'smoke-sessions-vintage-nation',
-	id: '1',
-	title: 'Watch Vintage Nation Discusss Originality In Music and Culture',
-	cover:
-		'https://res.cloudinary.com/phreshr-media/image/upload/ar_16:9,w_1080,dpr_auto,f_auto,q_auto/v1494274322/smoke-sessions/vintage-nation.jpg',
-	cover_preview:
-		'https://res.cloudinary.com/phreshr-media/image/upload/ar_16:9,c_fill,e_blur:100,fl_strip_profile,dpr_auto,f_auto,q_auto:low,w_480/v1494274322/smoke-sessions/vintage-nation.jpg',
-	season: '1',
-	show: {
-		title: 'Smoke Sessions'
+const featured_query = gql`
+	query {
+		episode(
+      where: {is_featured: {_eq: true}}
+      order_by: {created_at: desc}
+    ) {
+      id
+      uid
+      title
+      cover
+      season
+      episode_number
+      show {
+        title
+      }
+    }
 	}
-};
+`;
 
 interface FeaturedProps {}
 
 function Featured() {
-	const [featured, setFeatured] = useState(null)
   
 	return (
 		<div className="featured">
-			<FeaturedDetails featured={data} />
+			<Query query={featured_query}>
+				{({ data: { episode: episodes }, loading, error }) => {
+					if (loading) return <p>Loading...</p>;
+					if (error) return <p>ERROR: {error.message}</p>;
+					return episodes && <FeaturedDetails featured={episodes} />;
+				}}
+			</Query>
 			<style jsx>{`
 				div.featured {
 					display: flex;

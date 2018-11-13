@@ -1,8 +1,8 @@
 import { ApolloClient } from 'apollo-client';
-import { createHttpLink } from 'apollo-link-http';
+import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
 	uri: process.env.GRAPHQL_ENDPOINT,
 	headers: {
 		'x-hasura-access-key': process.env.HASURA_ACCESS_KEY

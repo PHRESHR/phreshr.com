@@ -4,7 +4,6 @@ import { Img } from 'the-platform';
 import { useSpring, animated } from 'react-spring';
 import css from 'styled-jsx/css';
 
-import { ShowsEntity } from '../../api/model';
 import { color, spacing } from '../../styles/variables';
 import { media, rem } from '../../styles/utils/utils';
 
@@ -43,11 +42,19 @@ const { className, styles } = css.resolve`
   }
 `;
 
-interface ShowDetailsProps {
-	show: ShowsEntity
+interface ShowsEntity {
+	uid?: string;
+	id?: string;
+	title?: string;
+	description?: string;
+	poster?: string;
 }
 
-function ShowDetails({ show }: ShowDetailsProps) {
+interface ShowDetailsProps {
+	shows: ShowsEntity[];
+}
+
+function ShowDetails({ shows }: ShowDetailsProps) {
 	const [ slideInRight ] = useSpring({
 		opacity: 1,
 		transform: 'translate3d(0px,0,0)',
@@ -56,34 +63,38 @@ function ShowDetails({ show }: ShowDetailsProps) {
 			transform: 'translate3d(-40px,0,0)'
 		}
 	});
-	
+
 	return (
 		<React.Fragment>
-			<animated.div style={slideInRight} className={`show-item ${className}`}>
-				<Link to="/about" className={`show-link ${className}`}>
-					<React.Suspense
-						fallback={
-							<img
-								className={`show-poster preview ${className}`}
-								src={show.poster_preview}
-								style={{
-									width: '100%',
-									objectFit: 'contain',
-									objectPosition: 'center top'
-								}}
+			{shows.map((show: ShowsEntity, i: number) => (
+				<animated.div style={slideInRight} className={`show-item ${className}`} key={show.id}>
+					<Link to="/about" className={`show-link ${className}`}>
+						<React.Suspense
+							fallback={
+								<img
+									className={`show-poster preview ${className}`}
+									src={`${process.env.CLOUDINARY_URL}/${process.env
+										.POSTER_TRANSFORM_PREVIEW}/${show.poster}`}
+									style={{
+										width: '100%',
+										objectFit: 'contain',
+										objectPosition: 'center top'
+									}}
+								/>
+							}
+						>
+							<Img
+								className={`show-poster loaded ${className}`}
+								src={`${process.env.CLOUDINARY_URL}/${process.env
+									.POSTER_TRANSFORM}/${show.poster}`}
+								style={{ width: '100%', objectFit: 'contain', objectPosition: 'center top' }}
 							/>
-						}
-					>
-						<Img
-							className={`show-poster loaded ${className}`}
-							src={show.poster}
-							style={{ width: '100%', objectFit: 'contain', objectPosition: 'center top' }}
-						/>
-					</React.Suspense>
-					<h2 className={`show-title ${className}`}>{show.title}</h2>
-					<p className={`show-description ${className}`}>{show.description}</p>
-				</Link>
-			</animated.div>
+						</React.Suspense>
+						<h2 className={`show-title ${className}`}>{show.title}</h2>
+						<p className={`show-description ${className}`}>{show.description}</p>
+					</Link>
+				</animated.div>
+			))}
 			{styles}
 		</React.Fragment>
 	);
